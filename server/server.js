@@ -30,14 +30,14 @@ app.get("/get-users", (req, res) => {
   db.each("SELECT * FROM UserInfo", (err, result) => {
       console.log(result);
   });
-  res.end("users");
+  res.end("users info shown");
 });
 
-let notes = [];
+let posts = [];
 
 app.get("/new-post", (req, res) => {
   const post = req.query.post;
-  posts.push(note);
+  posts.push(post);
   console.log(post);
   res.json({message: "post saved"})
 });
