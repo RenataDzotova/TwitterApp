@@ -27,10 +27,9 @@ app.post("/add-user", (req, res) => {
 });
 
 app.get("/get-users", (req, res) => {
-  db.each("SELECT * FROM UserInfo", (err, result) => {
-      console.log(result);
+  db.all("SELECT * FROM UserInfo", (err, result) => {
+    res.json(result);
   });
-  res.end("users info shown");
 });
 
 let posts = [];
