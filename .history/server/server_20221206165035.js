@@ -67,10 +67,10 @@ app.get('/posts', (req, res) => {
         res.status(401).send("Unauthorized")
     }
 
-    let allposts = db.query('SELECT * FROM posts', []);
+    let posts = db.query('SELECT * FROM posts', []);
 
     // res.sendFile(__dirname + '/view/posts.html')
-    res.render(__dirname + '/view/posts', { posts: allposts })
+    res.render(__dirname + '/view/posts', { posts:posts })
 })
 
 app.post('/posts', (req, res) => {
@@ -82,15 +82,61 @@ app.post('/posts', (req, res) => {
     let text = req.body.text
 
     const users = db.query('SELECT * FROM users WHERE id = ?', [userId])
-    // db.execute('INSERT INTO posts(text, user_name, user_id) VALUES (?, ?, ?)', [text, users[0].name, userId])
     db.execute('INSERT INTO posts(text, user_name) VALUES (?, ?)', [text, users[0].name])
-    let allposts = db.query('SELECT * FROM posts', []);
+    let posts = db.query('SELECT * FROM posts', []);
 
     // res.sendFile(__dirname + '/view/posts.html')
-    res.render(__dirname + '/view/posts', { posts: allposts })
+    res.render(__dirname + '/view/posts', { posts:posts })
 })
 
 app.listen(3001, () => {
     console.log("Server is running on 3001");
 });
 
+
+// app.get('/data', (req, res)=>{
+//   db.all('SELECT * FROM users', (err, data)=>{
+//       res.json(data)
+//   })
+// })
+//
+// app.get('/', (req, res)=>{
+//
+//   res.sendFile(__dirname + '/index.html')
+//
+// })
+//
+//
+//
+// let posts = [];
+//
+// app.get("/new-post", (req, res) => {
+//   const post = req.query.post;
+//   posts.push(post);
+//   console.log(post);
+//   res.json({message: "post saved"})
+// });
+//
+// app.get("/get-posts", (req, res) => {
+//   res.json({ posts });
+// });
+
+
+// app.post("/add-user", (req, res) => {
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   db.run(
+//     "INSERT INTO UserInfo (FirstName, Email, Password) VALUES (?, ?, ?)",
+//     [name, email, password],
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log(result);
+//         res.send("values inserted");
+//       }
+//     }
+//   );
+// });

@@ -82,8 +82,7 @@ app.post('/posts', (req, res) => {
     let text = req.body.text
 
     const users = db.query('SELECT * FROM users WHERE id = ?', [userId])
-    // db.execute('INSERT INTO posts(text, user_name, user_id) VALUES (?, ?, ?)', [text, users[0].name, userId])
-    db.execute('INSERT INTO posts(text, user_name) VALUES (?, ?)', [text, users[0].name])
+    db.execute('INSERT INTO posts(text, user_name, user_id) VALUES (?, ?, ?)', [text, users[0].name, users[0].id])
     let allposts = db.query('SELECT * FROM posts', []);
 
     // res.sendFile(__dirname + '/view/posts.html')

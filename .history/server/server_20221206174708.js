@@ -82,8 +82,7 @@ app.post('/posts', (req, res) => {
     let text = req.body.text
 
     const users = db.query('SELECT * FROM users WHERE id = ?', [userId])
-    // db.execute('INSERT INTO posts(text, user_name, user_id) VALUES (?, ?, ?)', [text, users[0].name, userId])
-    db.execute('INSERT INTO posts(text, user_name) VALUES (?, ?)', [text, users[0].name])
+    db.execute('INSERT INTO posts(text, user_name, user_id) VALUES (?, ?, ?)', [text, users[0].name, userId])
     let allposts = db.query('SELECT * FROM posts', []);
 
     // res.sendFile(__dirname + '/view/posts.html')
@@ -93,4 +92,5 @@ app.post('/posts', (req, res) => {
 app.listen(3001, () => {
     console.log("Server is running on 3001");
 });
+
 
