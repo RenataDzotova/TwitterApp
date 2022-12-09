@@ -78,12 +78,17 @@
                 <div>
                     <button>Edit</button>
                     <button>Follow</button>
-                    <button>Report</button>
+                    <button onclick='<%= "func1()" %>'>Report</button>
                 </div>
             </div>
             <%});%>
         </div>
 
     </div>
+    <script>
+      function func1(){
+        console.log("I am in the click handler 1!"); 
+      }
+    </script>
 </body>
 </html>
