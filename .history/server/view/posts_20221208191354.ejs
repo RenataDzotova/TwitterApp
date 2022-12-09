@@ -16,21 +16,14 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            width: 300px;
-            height: 150px;
-            color: maroon;
-            background-color: #faebf8;
-            margin-left: 0px;
-            border-radius: 16px;
-            border: 2px solid pink;
+          width: 300px;
+          height: 150px;
+          color: maroon;
+          background-color: #faebf8;
+          margin-left: 40px;
+          border-radius: 16px;
+          border: 1px solid pink;
         } 
-
-        #buttonContainer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-        }
 
         #screen {
             width: 100%;
@@ -47,8 +40,8 @@
 
         textarea{
             border: none;
-            width: 300px;
-            height: 100px;
+            width: 200px;
+            height: 70px;
             border-radius: 8px;
             margin: 10px;
         }
@@ -70,14 +63,10 @@
 <body>
     <div id="screen">
 
-        <form id="logout" action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
-
-        <form id="formTop" action="/posts" method="post">
-            <textarea name="text" placeholder="Come on type smth in here"></textarea>
-            <button type="submit">Publish</button>
-        </form>
+            <form id="formTop" action="/posts" method="post">
+                <textarea name="text" placeholder="Come on type smth in here"></textarea>
+                <button type="submit">Publish</button>
+            </form>
 
 
         <div>
@@ -86,19 +75,9 @@
             <div id="container">
                 <p id="username"><%= post.user_name%></p>
                 <div id="post"><%= post.text%></div>
-                <div id="buttonContainer">
+                <div>
                     <button>Edit</button>
-
-                    <% if( post.alreadyFollowed === 0){ %>
-                        <form action="/follow/<%= post.user_id%>" method="post">
-                            <button type="submit">Follow</button>
-                        </form>
-                    <% } else{ %>
-                        <form action="/unfollow/<%= post.user_id%>" method="post">
-                            <button type="submit">Unfollow</button>
-                        </form>
-                    <% } %>
-                    
+                    <button>Follow</button>
                     <button>Report</button>
                 </div>
             </div>

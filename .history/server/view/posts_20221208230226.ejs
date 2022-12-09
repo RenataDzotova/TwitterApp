@@ -22,7 +22,7 @@
             background-color: #faebf8;
             margin-left: 0px;
             border-radius: 16px;
-            border: 2px solid pink;
+            border: 1px solid pink;
         } 
 
         #buttonContainer {
@@ -70,14 +70,10 @@
 <body>
     <div id="screen">
 
-        <form id="logout" action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
-
-        <form id="formTop" action="/posts" method="post">
-            <textarea name="text" placeholder="Come on type smth in here"></textarea>
-            <button type="submit">Publish</button>
-        </form>
+            <form id="formTop" action="/posts" method="post">
+                <textarea name="text" placeholder="Come on type smth in here"></textarea>
+                <button type="submit">Publish</button>
+            </form>
 
 
         <div>
