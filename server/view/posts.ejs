@@ -48,7 +48,7 @@
       textarea {
         border: none;
         width: 300px;
-        height: 100px;
+        height: 75px;
         border-radius: 8px;
         margin: 10px;
       }
@@ -68,6 +68,13 @@
       .reported {
         color: black;
         font-size: 14px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        width: 90%;
+        align-items: center;
       }
     </style>
   </head>
@@ -90,17 +97,15 @@
         <div id="container">
           <p id="username"><%= post.user_name%></p>
           <div id="post"><%= post.text%></div>
-          <div id="editDiv">
-            <form action="/edit" method="post">
-              <textarea readonly name="id" id="idinput"><%= post.id%></textarea>
-              <textarea
-                name="text"
-                id="edit"
-                placeholder="edit post here"
-              ></textarea>
-              <button id="submit">Update Post</button>
-            </form>
-          </div>
+          <form action="/edit" method="post">
+            <input name="id" value="<%= post.id%>" disabled />
+            <textarea
+              name="text"
+              id="edit"
+              placeholder="edit post here"
+            ></textarea>
+            <button id="submit">Update Post</button>
+          </form>
           <div id="buttonContainer">
             <% if( post.alreadyFollowed===0){ %>
             <form action="/follow/<%= post.user_id%>" method="post">
