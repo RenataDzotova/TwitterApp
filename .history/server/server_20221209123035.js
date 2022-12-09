@@ -74,16 +74,15 @@ app.get('/posts', (req, res) => {
 
     // let allposts = db.query('SELECT * FROM posts', []);
     let allposts = db.query(`
-    SELECT *,
-        exists(SELECT *
-               FROM followers f
-               WHERE f.user_id = p.user_id AND f.follower_id = ?) as alreadyFollowed,
-        exists(SELECT *
-               FROM reports r
-               WHERE r.user_id = p.user_id AND r.report_id = ?) as alreadyReported
-    FROM posts p;
-    `, [userId, userId]);
-
+      SELECT *,
+          exists(SELECT *
+                 FROM followers f
+                 WHERE f.user_id = p.user_id AND f.follower_id = ?) as alreadyFollowed,
+          exists(SELECT *
+                 FROM reports r
+                 WHERE r.user_id = p.user_id AND r.report_id = ?) as alreadyReported
+      FROM posts p;
+      `, [userId]);
   
 
     // res.sendFile(__dirname + '/view/posts.html')

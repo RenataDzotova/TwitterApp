@@ -35,7 +35,7 @@ function initTables() {
     `CREATE TABLE IF NOT EXISTS reports ( 
       id INTEGER primary key autoincrement,
       user_id INTEGER,
-      report_id INTEGER
+      reportingUser_id INTEGER
       );`,
     []
   );
