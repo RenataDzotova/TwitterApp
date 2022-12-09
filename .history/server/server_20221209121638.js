@@ -74,17 +74,11 @@ app.get('/posts', (req, res) => {
 
     // let allposts = db.query('SELECT * FROM posts', []);
     let allposts = db.query(`
-    SELECT *,
-        exists(SELECT *
-               FROM followers f
-               WHERE f.user_id = p.user_id AND f.follower_id = ?) as alreadyFollowed,
-        exists(SELECT *
-               FROM reports r
-               WHERE r.user_id = p.user_id AND r.report_id = ?) as alreadyReported
-    FROM posts p;
-    `, [userId, userId]);
-
-  
+        SELECT *, exists(SELECT *
+            FROM followers f
+            WHERE f.user_id = p.user_id AND f.follower_id = ?) as alreadyFollowed
+        FROM posts p;
+    `, [userId]);
 
     // res.sendFile(__dirname + '/view/posts.html')
     res.render(__dirname + '/view/posts', { posts: allposts })
@@ -151,7 +145,7 @@ app.post('/report/:userIdToReport', (req, res) => {
     let userIdToReport = req.params.userIdToReport;
     console.log("reported", userIdToReport, currentUserId);
 
-    db.execute('INSERT INTO reports (user_id, report_id) VALUES (?, ?)', [userIdToReport, currentUserId]);
+    db.execute('INSERT INTO reports (user_id, reportingUser_id) VALUES (?, ?)', [userIdToReport, currentUserId]);
 
     res.redirect("/posts");
 });
