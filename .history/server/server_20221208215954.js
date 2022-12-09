@@ -52,7 +52,7 @@ app.post('/login', (req, res) => {
     res.redirect('/posts')
 })
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     res.clearCookie(currentUserIdCookieName);
     res.sendFile(__dirname + '/view/login.html')
 })
@@ -109,23 +109,6 @@ app.post('/follow/:userIdToFollow' , (req, res) => {
 
     res.redirect("/posts");
 })
-
-
-app.post('/unfollow/:userIdToUnfollow' , (req, res) => {
-
-    let currentUserId = req.cookies[currentUserIdCookieName];
-    if (currentUserId === undefined) {
-        res.status(401).send("Unauthorized")
-    }
-
-    let userIdToUnfollow = req.params.userIdToUnfollow;
-    console.log("unfollow", userIdToUnfollow, currentUserId);
-
-    db.execute('DELETE FROM followers WHERE user_id = ? AND follower_id = ?', [userIdToUnfollow ,currentUserId]);
-
-    res.redirect("/posts");
-})
-
 
 app.listen(3001, () => {
     console.log("Server is running on 3001");

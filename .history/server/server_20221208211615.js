@@ -52,7 +52,7 @@ app.post('/login', (req, res) => {
     res.redirect('/posts')
 })
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     res.clearCookie(currentUserIdCookieName);
     res.sendFile(__dirname + '/view/login.html')
 })
@@ -67,13 +67,7 @@ app.get('/posts', (req, res) => {
         res.status(401).send("Unauthorized")
     }
 
-    // let allposts = db.query('SELECT * FROM posts', []);
-    let allposts = db.query(`
-        SELECT *, exists(SELECT *
-            FROM followers f
-            WHERE f.user_id = p.user_id AND f.follower_id = ?) as alreadyFollowed
-        FROM posts p;
-    `, [userId]);
+    let allposts = db.query('SELECT * FROM posts', []);
 
     // res.sendFile(__dirname + '/view/posts.html')
     res.render(__dirname + '/view/posts', { posts: allposts })
@@ -105,27 +99,10 @@ app.post('/follow/:userIdToFollow' , (req, res) => {
     let userIdToFollow = req.params.userIdToFollow;
     console.log("follow", userIdToFollow, currentUserId);
 
-    db.execute('INSERT INTO followers (user_id, follower_id) VALUES (?, ?)', [userIdToFollow, currentUserId]);
+    db.execute('INSERT INTO followers (user_id, follower_id) VALUES (?, ?)', [userIdToFollow, currentUserId])
 
-    res.redirect("/posts");
+    res.end();
 })
-
-
-app.post('/unfollow/:userIdToUnfollow' , (req, res) => {
-
-    let currentUserId = req.cookies[currentUserIdCookieName];
-    if (currentUserId === undefined) {
-        res.status(401).send("Unauthorized")
-    }
-
-    let userIdToUnfollow = req.params.userIdToUnfollow;
-    console.log("unfollow", userIdToUnfollow, currentUserId);
-
-    db.execute('DELETE FROM followers WHERE user_id = ? AND follower_id = ?', [userIdToUnfollow ,currentUserId]);
-
-    res.redirect("/posts");
-})
-
 
 app.listen(3001, () => {
     console.log("Server is running on 3001");

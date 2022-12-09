@@ -52,7 +52,7 @@ app.post('/login', (req, res) => {
     res.redirect('/posts')
 })
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     res.clearCookie(currentUserIdCookieName);
     res.sendFile(__dirname + '/view/login.html')
 })

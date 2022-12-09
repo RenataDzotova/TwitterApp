@@ -13,17 +13,9 @@
             height: 150px;
             color: maroon;
             background-color: #faebf8;
+            margin-left: 0px;
             border-radius: 16px;
             border: 2px solid pink;
-        } 
-
-        #wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            width: 100vw;
-            height: 100vh;
         } 
 
         form{
@@ -35,14 +27,12 @@
     </style>
 </head>
 <body>
-    <div id="wrapper">
-        <div id="container">
-            <form action="/login" method="post">
-                <input type="text" name="email" placeholder="email">
-                <input type="text" name="password" placeholder="password">
-                <button type="submit">submit</button>
-            </form>
-        </div>
+    <div id="container">
+        <form action="/login" method="post">
+            <input type="text" name="email" placeholder="email">
+            <input type="text" name="password" placeholder="password">
+            <button type="submit">submit</button>
+        </form>
     </div>
 </body>
 </html>
