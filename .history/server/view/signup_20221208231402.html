@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Sign Up</title>
     <style>
          #container {
             display: flex;
@@ -22,8 +22,8 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
         } 
 
         form{
@@ -37,7 +37,8 @@
 <body>
     <div id="wrapper">
         <div id="container">
-            <form action="/login" method="post">
+            <form action="/signup" method="post">
+                <input type="text" name="name" placeholder="name">
                 <input type="text" name="email" placeholder="email">
                 <input type="text" name="password" placeholder="password">
                 <button type="submit">submit</button>

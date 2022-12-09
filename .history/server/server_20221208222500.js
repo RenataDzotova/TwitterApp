@@ -52,7 +52,7 @@ app.post('/login', (req, res) => {
     res.redirect('/posts')
 })
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     res.clearCookie(currentUserIdCookieName);
     res.sendFile(__dirname + '/view/login.html')
 })
@@ -119,7 +119,7 @@ app.post('/unfollow/:userIdToUnfollow' , (req, res) => {
     }
 
     let userIdToUnfollow = req.params.userIdToUnfollow;
-    console.log("unfollow", userIdToUnfollow, currentUserId);
+    console.log("follow", userIdToUnfollow, currentUserId);
 
     db.execute('DELETE FROM followers WHERE user_id = ? AND follower_id = ?', [userIdToUnfollow ,currentUserId]);
 
