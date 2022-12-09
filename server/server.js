@@ -10,16 +10,21 @@ const e = require("express");
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 const currentUserIdCookieName = "user_id"
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/view/signup.html')
+})
+
 // AUTH ROUTS
 
 app.get('/signup', (req, res) => {
-    res.sendFile(__dirname + '/view/signup.html')
+    res.clearCookie(currentUserIdCookieName);
+    res.sendFile(__dirname + '/view/login.html')
 })
 
 app.post('/signup', (req, res) => {
@@ -54,7 +59,7 @@ app.post('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
     res.clearCookie(currentUserIdCookieName);
-    res.sendFile(__dirname + '/view/login.html')
+    res.sendFile(__dirname + '/view/signup.html')
 })
 
 //////////////
@@ -90,12 +95,12 @@ app.post('/posts', (req, res) => {
     const users = db.query('SELECT * FROM users WHERE id = ?', [userId])
     db.execute('INSERT INTO posts(text, user_name, user_id) VALUES (?, ?, ?)', [text, users[0].name, userId])
     let allposts = db.query('SELECT * FROM posts', []);
-
+    console.log(allposts);
     // res.sendFile(__dirname + '/view/posts.html')
     res.render(__dirname + '/view/posts', { posts: allposts })
 })
 
-app.post('/follow/:userIdToFollow' , (req, res) => {
+app.post('/follow/:userIdToFollow', (req, res) => {
 
     let currentUserId = req.cookies[currentUserIdCookieName];
     if (currentUserId === undefined) {
@@ -111,7 +116,7 @@ app.post('/follow/:userIdToFollow' , (req, res) => {
 })
 
 
-app.post('/unfollow/:userIdToUnfollow' , (req, res) => {
+app.post('/unfollow/:userIdToUnfollow', (req, res) => {
 
     let currentUserId = req.cookies[currentUserIdCookieName];
     if (currentUserId === undefined) {
@@ -121,13 +126,30 @@ app.post('/unfollow/:userIdToUnfollow' , (req, res) => {
     let userIdToUnfollow = req.params.userIdToUnfollow;
     console.log("unfollow", userIdToUnfollow, currentUserId);
 
-    db.execute('DELETE FROM followers WHERE user_id = ? AND follower_id = ?', [userIdToUnfollow ,currentUserId]);
+    db.execute('DELETE FROM followers WHERE user_id = ? AND follower_id = ?', [userIdToUnfollow, currentUserId]);
 
     res.redirect("/posts");
 })
 
 
+
+
+//report
+app.post('/report/:userIdToReport', (req, res) => {
+
+    let currentUserId = req.cookies[currentUserIdCookieName];
+    if (currentUserId === undefined) {
+        res.status(401).send("Unauthorized")
+    }
+
+    let userIdToReport = req.params.userIdToReport;
+    console.log("reported", userIdToReport, currentUserId);
+
+    db.execute('INSERT INTO reports (user_id, report_id) VALUES (?, ?)', [userIdToReport, currentUserId]);
+
+    res.redirect("/posts");
+});
+
 app.listen(3001, () => {
     console.log("Server is running on 3001");
 });
-
