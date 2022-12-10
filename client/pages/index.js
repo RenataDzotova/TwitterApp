@@ -29,7 +29,7 @@ export default function SignUp() {
   const [email, setEmail] = useState();
 
   const addUser = () => {
-    Axios.post("http://localhost:3001/add-user", { name: name, password: password, email: email }).then(
+    Axios.post("http://localhost:3001/signup", { name: name, password: password, email: email }).then(
       () => {
         console.log(name, password, email);
       }
@@ -42,7 +42,7 @@ export default function SignUp() {
         <h1>Welcome to our app!</h1>
         <p>Please sign up to begin.</p>
       </div>
-      <LoginForm action="/home" method="post">
+      <LoginForm>
         <input
           type="text"
           placeholder='Enter your first name'

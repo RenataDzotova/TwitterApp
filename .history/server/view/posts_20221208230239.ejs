@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+          background-color: #e3f8ff;
+        }
+        
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 300px;
+            height: 150px;
+            color: maroon;
+            background-color: #faebf8;
+            margin-left: 0px;
+            border-radius: 16px;
+            border: 2px solid pink;
+        } 
+
+        #buttonContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        #screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #username{
+            color:darkslateblue;
+        }
+
+        textarea{
+            border: none;
+            width: 300px;
+            height: 100px;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        #formTop{
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #post{
+            margin: 10px;
+        }
+        </style>
+</head>
+
+<body>
+    <div id="screen">
+
+            <form id="formTop" action="/posts" method="post">
+                <textarea name="text" placeholder="Come on type smth in here"></textarea>
+                <button type="submit">Publish</button>
+            </form>
+
+
+        <div>
+            <% posts.forEach(function(post) {%>
+            <br/>
+            <div id="container">
+                <p id="username"><%= post.user_name%></p>
+                <div id="post"><%= post.text%></div>
+                <div id="buttonContainer">
+                    <button>Edit</button>
+
+                    <% if( post.alreadyFollowed === 0){ %>
+                        <form action="/follow/<%= post.user_id%>" method="post">
+                            <button type="submit">Follow</button>
+                        </form>
+                    <% } else{ %>
+                        <form action="/unfollow/<%= post.user_id%>" method="post">
+                            <button type="submit">Unfollow</button>
+                        </form>
+                    <% } %>
+                    
+                    <button>Report</button>
+                </div>
+            </div>
+            <%});%>
+        </div>
+
+    </div>
+</body>
+</html>
