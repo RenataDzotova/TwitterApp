@@ -9,6 +9,8 @@
     <style>
       body {
         background-color: #fffffe;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
       }
 
       #container {
@@ -17,13 +19,36 @@
         justify-content: center;
         flex-direction: column;
         width: 300px;
-        height: auto;
-        color: maroon;
-        background-color: #faebf8;
-        margin-left: 0px;
+        background-color: #fbffd8;
+        margin: 15px;
         border-radius: 16px;
-        border: 2px solid pink;
+        border: 5px solid #00214d;
+        padding: 15px;
+        box-shadow: 2px 2px 1px 2px #00214d;
       }
+
+      #publishContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 300px;
+        background-color: #ff5470;
+        margin: 10px;
+        border-radius: 16px;
+        border: 5px solid #00214d;
+        padding: 15px;
+        box-shadow: 2px 2px 1px 2px #00214d;
+      }
+
+      #postsContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        flex-wrap: wrap-reverse;
+      }
+
 
       #buttonContainer {
         display: flex;
@@ -35,7 +60,15 @@
       button {
         background-color: #00ebc7;
         padding: 10px;
-        border-radius: ;
+        border-radius: 3px;
+        border-color: #00214d;
+        color: #00214d;
+        box-shadow: 2px 2px 1px 2px #00214d;
+        font-weight: 700;
+      }
+
+      button:hover {
+      background-color: #ff5470;
       }
 
       #screen {
@@ -47,16 +80,22 @@
         align-items: center;
       }
 
-      #username {
-        color: darkslateblue;
+      #headings {
+        color: #ff5470;
+        font-weight: 700;
+        font-size: 25px;
       }
 
       textarea {
-        border: none;
-        width: 300px;
+        /* border: 3px solid #00214d; */
+        width: 250px;
         height: 75px;
         border-radius: 8px;
         margin: 10px;
+        box-shadow: inset 0px 4px 4px #D9D9D9;
+        border: none;
+        border-radius: 2px;
+        padding: 20px;
       }
 
       #formTop {
@@ -68,13 +107,26 @@
       }
 
       #post {
-        margin: 10px;
+        font-style: italic;
+        font-weight: 500;
+        color: #00214d;
+        background-color: #fffffe;
+        border-radius: 16px;
+        border: 3px solid #00214d;
+        padding: 15px;
+
       }
 
       .reported {
-        color: black;
-        font-size: 14px;
+        background-color: #fde24f;
+        padding: 10px;
+        border-radius: 3px;
+        border-color: #00214d;
+        color: #00214d;
+        box-shadow: 2px 2px 1px 2px #00214d;
+        font-weight: 700;
       }
+
       form {
         display: flex;
         flex-direction: column;
@@ -82,59 +134,79 @@
         width: 90%;
         align-items: center;
       }
+
       #postid {
         height: 0.00001px;
       }
+
     </style>
   </head>
   <body>
+
     <div id="screen">
+
+      <p id="headings"> Welcome </p>
+
       <form id="logout" action="/logout" method="post">
-        <button type="submit">Logout</button>
+          <button type="submit">Logout</button>
       </form>
+
       <form id="formTop" action="/posts" method="post">
-        <textarea
-          name="text"
-          placeholder="Come on type smth in here"
-        ></textarea>
+
+        <div id="publishContainer">
+          <textarea
+            name="text"
+            placeholder="Come on type smth in here">
+          </textarea>
         <button type="submit">Publish</button>
+      </div>
+
       </form>
-      <div>
+
+      <div id="postsContainer">
         <% posts.forEach(function(post) {%>
         <br />
 
         <div id="container">
-          <p id="username"><%= post.user_name%></p>
-          <div id="post"><%= post.text%></div>
+
+            <p id="headings"><%= post.user_name%> says...</p>
+
+          <div id="post"> " <%= post.text%> "</div>
+
           <form action="/edit" method="post">
-            <textarea name="id" id="postid" readonly><%= post.id%></textarea>
-            <textarea
+              <textarea
               name="text"
               id="edit"
               placeholder="edit post here"
-            ></textarea>
-            <button id="submit">Update Post</button>
+              ></textarea>
+              <button id="submit">Update Post</button>
           </form>
+
           <div id="buttonContainer">
-            <% if( post.alreadyFollowed===0){ %>
-            <form action="/follow/<%= post.user_id%>" method="post">
-              <button type="submit">Follow</button>
-            </form>
-            <% } else{ %>
-            <form action="/unfollow/<%= post.user_id%>" method="post">
-              <button type="submit">Unfollow</button>
-            </form>
-            <% } %> <% if( post.alreadyReported===0){ %>
-            <form action="/report/<%= post.user_id%>" method="post">
-              <button class="report" type="submit">Report</button>
-            </form>
-            <% } else{ %>
-            <div class="reported">Reported</div>
-            <% } %>
-          </div>
+
+              <% if( post.alreadyFollowed===0){ %>
+                <form action="/follow/<%= post.user_id%>" method="post">
+                  <button type="submit">Follow</button>
+                </form>
+              <% } else{ %>
+                <form action="/unfollow/<%= post.user_id%>" method="post">
+                  <button type="submit">Unfollow</button>
+                </form>
+              <% } %> <% if( post.alreadyReported===0){ %>
+                  <form action="/report/<%= post.user_id%>" method="post">
+                     <button class="report" type="submit">Report</button>
+                  </form>
+              <% } else{ %>
+                      <div class="reported">Reported</div>
+              <% } %>
+            </div>
+            <p> Post ID: <%= post.id%></p>
+
         </div>
         <%});%>
+
       </div>
     </div>
+
   </body>
 </html>
