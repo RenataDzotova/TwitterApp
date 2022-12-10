@@ -80,10 +80,22 @@
         align-items: center;
       }
 
-      #headings {
+      h1 {
+        color: #ff5470;
+        font-weight: 700;
+        font-size: 45px;
+      }
+
+      #username {
         color: #ff5470;
         font-weight: 700;
         font-size: 25px;
+      }
+
+      p {
+        color: #00214d;
+        font-weight: 700;
+        font-size: 20px;
       }
 
       textarea {
@@ -145,7 +157,7 @@
 
     <div id="screen">
 
-      <p id="headings"> Welcome </p>
+      <h1> Welcome </h1>
 
       <form id="logout" action="/logout" method="post">
           <button type="submit">Logout</button>
@@ -154,6 +166,7 @@
       <form id="formTop" action="/posts" method="post">
 
         <div id="publishContainer">
+          <p>What are you thinking about?</p>
           <textarea
             name="text"
             placeholder="Come on type smth in here">
@@ -169,7 +182,7 @@
 
         <div id="container">
 
-            <p id="headings"><%= post.user_name%> says...</p>
+            <p id="username"><%= post.user_name%> says...</p>
 
           <div id="post"> " <%= post.text%> "</div>
 

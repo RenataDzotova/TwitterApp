@@ -4,17 +4,38 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <style>
+
+        body {
+            background-color: #fffffe;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+
+        p {
+        color: #00214d;
+        font-weight: 700;
+        font-size: 20px;
+         }
+
+        h1 {
+            color: #ff5470;
+            font-weight: 700;
+            font-size: 45px;
+            margin: 0;
+        }
+
          #container {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            width: 300px;
-            height: 150px;
-            color: maroon;
-            background-color: #faebf8;
+            width: 315px;
+            height: 315px;
+            background-color: #ff5470;
+            margin: 15px;
             border-radius: 16px;
-            border: 2px solid pink;
+            border: 5px solid #00214d;
+            box-shadow: 2px 2px 1px 2px #00214d;
         } 
 
         #wrapper {
@@ -24,6 +45,7 @@
             flex-direction: column;
             width: 100vw;
             height: 100vh;
+
         } 
 
         form{
@@ -31,12 +53,41 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+
         }
+
+        input{
+            margin: 10px;
+            height: 25px;
+            width: 200px;
+            border: 5px solid #00214d;
+            border-radius: 8px;
+            box-shadow: inset 0px 4px 4px #D9D9D9;
+            border-radius: 3px;
+            padding: 15px;
+        }
+
+        button{
+            background-color: #00ebc7;
+            padding: 10px;
+            border-radius: 3px;
+            border-color: #00214d;
+            color: #00214d;
+            box-shadow: 2px 2px 1px 2px #00214d;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background-color:#fde24f;
+        }
+
     </style>
 </head>
 <body>
     <div id="wrapper">
+        <h1>Twatter</h1>
         <div id="container">
+            <p>Please Login :)</p>
             <form action="/login" method="post">
                 <input type="text" name="email" placeholder="email">
                 <input type="text" name="password" placeholder="password">
