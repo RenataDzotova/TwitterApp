@@ -76,6 +76,9 @@
         width: 90%;
         align-items: center;
       }
+      #postid {
+        height: 0.00001px;
+      }
     </style>
   </head>
   <body>
@@ -98,7 +101,7 @@
           <p id="username"><%= post.user_name%></p>
           <div id="post"><%= post.text%></div>
           <form action="/edit" method="post">
-            <input name="id" value="<%= post.id%>" disabled />
+            <textarea name="id" id="postid" readonly><%= post.id%></textarea>
             <textarea
               name="text"
               id="edit"

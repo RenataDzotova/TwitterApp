@@ -171,11 +171,9 @@ app.post("/report/:userIdToReport", (req, res) => {
 
 // edit
 app.post("/edit", (req, res) => {
-  // let postToEdit = req.params.postToEdit;
-  //   const post = db.query("SELECT * FROM posts WHERE id=?", [id]);
-  //   res.cookie(currentPostCookieName, post.id);
   let text = req.body.text;
   let postId = req.body.id;
+  console.log(req.body);
   db.execute("UPDATE posts SET text = ? WHERE id = ?", [text, postId]);
   console.log("edited", text);
   res.redirect("/posts");
