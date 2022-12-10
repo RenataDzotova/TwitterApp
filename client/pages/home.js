@@ -36,7 +36,7 @@ const PostCont = styled.div`
   width: 100%;
   height: 100%;
   background-color: lightgrey;
-  border: 1px solid black;
+  border: 5px solid black;
   color: black;
   padding: 0.5rem;
   min-width: 500px;
